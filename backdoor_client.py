@@ -15,7 +15,6 @@ print("Listening...")
 print("Connection OK" + str(address))
 
 while True:
-	#python 2
 	command = input("Enter command ")
 	connection.sendall((command).encode())
 	command_output = connection.recv(1024)
