@@ -28,8 +28,7 @@ class SocketClient:
         while True:
             command = input("Enter command ")
             command_output = self.command_execution(command)
-            self.json_send(command_output)
-        self.connection.close()
+            print(command_output)
 
 
 #my_socket_listener = SockerClient("10.2.2.4",7070)
